@@ -23,11 +23,11 @@ extract_root_url() {
   #echo "ROOT_URL: $ROOT_URL"
 }
 
-extract_mongo_url
-extract_root_url
+#extract_mongo_url
+#extract_root_url
 
 cat <<-YAML
 ---
 default_process_types:
-  web: MONGO_URL=$MONGO_URL ROOT_URL=$ROOT_URL vendor/node/bin/node deploy/bundle/main.js
+  web: MONGO_URL=$MONGO_URL MONGO_OPLOG_URL=$MONGO_OPLOG_URL ROOT_URL=$ROOT_URL vendor/node/bin/node deploy/bundle/main.js
 YAML
