@@ -74,6 +74,7 @@ build() {
     meteor build --directory ../deploy --server http://localhost:3000 --server-only
     cd ../deploy
     meteor npm install
+    meteor npm install --save busboy
     cd bundle/programs/server
     status "Installing npm dependencies"
     npm install 2>&1 | indent
