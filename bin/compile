@@ -80,8 +80,6 @@ install_meteor() {
 build() {
   (
     cd $BUILD_DIR
-    status "Updating meteor"
-    meteor update
 
     status "Building meteor bundle"
     mkdir -p ../deploy
