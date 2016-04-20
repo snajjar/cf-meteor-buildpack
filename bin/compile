@@ -58,6 +58,8 @@ install_meteor() {
     mv $METEOR_INSTALL_SCRIPT meteor_install
     sed -e "s/$(grep RELEASE= install_meteor.sh)/RELEASE=\"$METEOR_RELEASE\"/" meteor_install > $METEOR_INSTALL_SCRIPT
     rm meteor_install
+  else
+    status "No Meteor version specified - using default"
   fi
 
   status "Installing Meteor connected to $MONGO_URL"
