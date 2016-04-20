@@ -50,7 +50,12 @@ install_meteor() {
   # curl https://install.meteor.com | sh
   status "Downloading Meteor install script"
   METEOR_INSTALL_SCRIPT=install_meteor.sh
-  curl https://install.meteor.com/ > $METEOR_INSTALL_SCRIPT
+  curl https://install.meteor.com/ > meteor_install
+
+  RELEASE="1.3.2.2"
+  sed -e "s/$(grep RELEASE= install_meteor.sh)/RELEASE=\"$RELEASE\"/" meteor_install > $METEOR_INSTALL_SCRIPT
+  chmod +x $METEOR_INSTALL_SCRIPT
+  rm meteor_install
 
   status "Installing Meteor connected to $MONGO_URL"
   sed -e '/^#!\/bin\/sh/ s/$/ -x/' \
