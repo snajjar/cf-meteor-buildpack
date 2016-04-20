@@ -54,14 +54,9 @@ install_meteor() {
 
   # if meteor release is defined, edit the install script
   if [ -z "${METEOR_RELEASE}" ]; then
-    status "Editing install script to set release $METEOR_RELEASE"
-    mv $METEOR_INSTALL_SCRIPT meteor_install
-    sed -e "s/$(grep RELEASE= meteor_install)/RELEASE=\"$METEOR_RELEASE\"/" meteor_install > $METEOR_INSTALL_SCRIPT
-    rm meteor_install
+    status "No Meteor version specified - using default"
   else
-    printenv
-    METEOR_RELEASE="1.3.2.2"
-    status "No Meteor version specified - using $METEOR_RELEASE"
+    status "Editing install script to set release $METEOR_RELEASE"
     mv $METEOR_INSTALL_SCRIPT meteor_install
     sed -e "s/$(grep RELEASE= meteor_install)/RELEASE=\"$METEOR_RELEASE\"/" meteor_install > $METEOR_INSTALL_SCRIPT
     rm meteor_install
