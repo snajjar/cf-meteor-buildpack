@@ -81,9 +81,6 @@ build() {
   (
     cd $BUILD_DIR
 
-    status "installing app npm dependencies"
-    meteor npm install
-
     status "Building meteor bundle"
     mkdir -p ../deploy
     meteor build --directory ../deploy --server http://localhost:3000 --server-only
