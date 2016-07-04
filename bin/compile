@@ -79,7 +79,9 @@ install_meteor() {
 
 build() {
   (
+    status "Installing meteor npm dependencies"
     cd $BUILD_DIR
+    meteor npm install
 
     status "Building meteor bundle"
     mkdir -p ../deploy
