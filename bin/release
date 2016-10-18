@@ -31,5 +31,5 @@ extract_root_url
 cat <<-YAML
 ---
 default_process_types:
-  web: MONGO_URL='$MONGO_URL' MONGO_OPLOG_URL='$MONGO_OPLOG_URL' ROOT_URL='$ROOT_URL' vendor/node/bin/node ../deploy/bundle/main.js
+  web: MONGO_URL='$MONGO_URL' MONGO_OPLOG_URL='$MONGO_OPLOG_URL' ROOT_URL='$ROOT_URL' METEOR_WAREHOUSE_URLBASE="https://d3fm2vapipm3k9.cloudfront.net" vendor/node/bin/node ../deploy/bundle/main.js
 YAML
