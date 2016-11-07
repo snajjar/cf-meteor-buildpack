@@ -104,7 +104,10 @@ install_npm_dependencies() {
 [ ! -d $CACHE_DIR ] && mkdir $CACHE_DIR
 
 install_node
-ls
+status "ls -al"
+ls -al
+status "ls -al app"
+ls -al app
 if [ ! -d "$BUILD_DIR/bundle" ]; then
     status "Can't find bundle directory, will build meteor application"
     install_meteor
