@@ -39,58 +39,11 @@ install_node() {
   PATH=$BUILD_DIR/.vendor/node/bin:$PATH
 }
 
-install_meteor() {
-  if [ -f "$METEOR_HOME/usr/bin/meteor" ] ; then
-    status "Skipping Meteor installation. Already installed."
-    return
-  fi
-
-  # status "Install Meteor"
-  # export PATH=/usr/bin:$PATH # necessary for install script to run from URL
-  # curl https://install.meteor.com | sh
-  status "Downloading Meteor install script"
-  METEOR_INSTALL_SCRIPT=install_meteor.sh
-  curl https://install.meteor.com/ > $METEOR_INSTALL_SCRIPT
-
-  # if meteor release is defined, edit the install script
-  if [ -z "${METEOR_RELEASE}" ]; then
-    status "No Meteor version specified - using default"
-  else
-    status "Editing install script to set release $METEOR_RELEASE"
-    mv $METEOR_INSTALL_SCRIPT meteor_install
-    sed -e "s/$(grep RELEASE= meteor_install)/RELEASE=\"$METEOR_RELEASE\"/" meteor_install > $METEOR_INSTALL_SCRIPT
-    rm meteor_install
-  fi
-
-  status "Installing Meteor connected to $MONGO_URL"
-  sed -e '/^#!\/bin\/sh/ s/$/ -x/' \
-    -e 's/set -/#set -/' \
-    -e 's/curl --progress-bar --fail.*/curl "$TARBALL_URL" > meteor-bundle.tgz; tar -xzf meteor-bundle.tgz -C "$INSTALL_TMPDIR" -o/' \
-    $METEOR_INSTALL_SCRIPT > install-meteor-verbose.sh
-  chmod +x install-meteor-verbose.sh
-
-  status "Execute ./install-meteor-verbose.sh"
-  ./install-meteor-verbose.sh
-  status "Done"
-
-  status "Updating PATH with Meteor"
-  PATH=$HOME/.meteor:$PATH
-}
-
 build() {
   (
-    status "Installing meteor npm dependencies"
-    cd $BUILD_DIR
-    meteor npm install
-
-    status "Building meteor bundle"
-    mkdir -p ../deploy
-    meteor build --directory ../deploy --server http://localhost:3000 --server-only
-    cd ../deploy
-
     status "Installing npm dependencies"
     cd bundle/programs/server
-    meteor npm install
+    npm install
     mv $BUILD_DIR/.vendor $BUILD_DIR/vendor
   )
 }
@@ -99,7 +52,6 @@ build() {
 [ ! -d $CACHE_DIR ] && mkdir $CACHE_DIR
 
 install_node
-install_meteor
 build
 
 status "Checking for post_compile script"
