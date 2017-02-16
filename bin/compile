@@ -93,8 +93,9 @@ build_meteor() {
 
 install_npm_dependencies() {
   (
-    status "Installing npm dependencies"
     cd $BUILD_DIR/bundle/programs/server
+    status "Installing npm dependencies in $PWD"
+    ls -al
     npm install
     mv $BUILD_DIR/.vendor $BUILD_DIR/vendor
   )
