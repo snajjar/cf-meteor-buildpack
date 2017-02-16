@@ -94,7 +94,7 @@ build_meteor() {
 install_npm_dependencies() {
   (
     status "Installing npm dependencies"
-    cd bundle/programs/server
+    cd $BUILD_DIR/bundle/programs/server
     npm install
     mv $BUILD_DIR/.vendor $BUILD_DIR/vendor
   )
@@ -104,15 +104,12 @@ install_npm_dependencies() {
 [ ! -d $CACHE_DIR ] && mkdir $CACHE_DIR
 
 install_node
-status "ls -al"
-ls -al
-status "ls -al app"
-ls -al app
 if [ ! -d "$BUILD_DIR/bundle" ]; then
     status "Can't find bundle directory, will build meteor application"
     install_meteor
     build_meteor
 fi
+ls -al
 install_npm_dependencies
 
 status "Checking for post_compile script"
